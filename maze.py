@@ -21,7 +21,6 @@ class Maze:
         except Exception:
             print("Load Maze failure...")
 
-
     # The method of display
     def print_maze(self, player_pos=None):
         for i, row in enumerate(self.map):
@@ -32,7 +31,6 @@ class Maze:
                 else:
                     row_str += cell
             print(row_str)
-
 
     # Judges a coordinate whether approved to move
     def is_walkable(self, row, col):

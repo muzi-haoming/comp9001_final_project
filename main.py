@@ -1,32 +1,52 @@
 from maze import Maze
 from player import Player
 
+
 def play_maze(level_path_list):
+    print(">>>Welcome to the maze game!<<<")
+    print("🎮 The maze game begins! Input w/a/s/d to move up/left/down/right or r/q to restart/quit")
+    print("🔚 Reach E to end the game!")
+
     for i, level_path in enumerate(level_path_list):
-        print("Welcome to the maze game!")
-        print("The first pass:")
+        print(f">>Level {i + 1}<<")
 
         maze = Maze(level_path)
         player = Player(maze.start)
 
-        print("🎮 The maze game begins! Input w/a/s/d to move up/left/down/right")
-        print("🔚 Reach E to end the game!")
-
         while True:
+            print("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
             maze.print_maze(player.get_position())
-            move = input("你的移动 (w/a/s/d): ").lower()
+            move = input("Your input (w/a/s/d/r/q): ")
 
-            if move not in ['w', 'a', 's', 'd']:
-                print("⚠️ 无效输入，请输入 w/a/s/d。")
+            if move not in ["w", "a", "s", "d", "r", "q"]:
+                print("⚠️⚠️⚠️ Invalid input...")
                 continue
 
+            if move == "r":
+                maze = Maze(level_path)
+                player = Player(maze.start)
+                print("The Map have been refreshed")
+                continue
+
+            if move == "q":
+                i = -1
+                break
+
             if not player.move(move, maze):
-                print("🚧 撞墙啦，不能走这边！")
+                print("🚧🚧🚧 You cannot move to here.")
 
             if player.at_goal(maze.end):
                 maze.print_maze(player.get_position())
-                print("🎉 恭喜你到达终点！游戏结束。")
+                print("🎉🎉🎉 Congratulations!")
                 break
+
+        if i == len(level_path_list) - 1:
+            print(">>>🎉🎉🎉🎉🎉🎉 You have cleared all levels!🎉🎉🎉🎉🎉🎉<<<")
+
+        if i == -1:
+            print(">>>Bye~<<<")
+            break
+
 
 if __name__ == "__main__":
     level_file_list = ["levels/level_1.txt", "levels/level_2.txt", "levels/level_3.txt"]
