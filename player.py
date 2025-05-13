@@ -23,5 +23,4 @@ class Player:
         return False
 
     def at_goal(self, goal_pos):
-        """判断玩家是否到达终点"""
         return (self.row, self.col) == goal_pos
